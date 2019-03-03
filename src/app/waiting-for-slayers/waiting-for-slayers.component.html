@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Waiting for slayers...</h1>
+<div mat-dialog-content>
+  <div *ngFor="let slayer of slayers" class="slayer-acceptance-container" [ngClass]="getAcceptanceClass(slayer.isInGame.accepted)">
+    <p class="mat-body-1">@{{slayer.name}}</p>
+  </div>
+</div>

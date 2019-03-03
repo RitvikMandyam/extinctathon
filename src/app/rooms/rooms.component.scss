@@ -1,0 +1,31 @@
+@import '../../variables';
+
+.padded-container {
+  flex-flow: row nowrap;
+}
+
+.room-wrapper {
+  padding: 32px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 2px solid white;
+  margin: 0 16px;
+  cursor: pointer;
+}
+
+.room-wrapper:hover {
+  border: 2px solid map_get($candy-app-primary, 500);
+  color: map_get($candy-app-primary, 500);
+}
+
+.hover-disabled:hover {
+  border: 2px solid white;
+  cursor: initial;
+}
+
+.room-wrapper p {
+  margin: 0;
+}

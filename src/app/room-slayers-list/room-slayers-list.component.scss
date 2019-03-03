@@ -1,0 +1,50 @@
+@import '../../variables';
+.slayer-container {
+  padding: 8px 0;
+}
+
+.slayer-names-container {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  width: 100%;
+}
+
+.slayer-container {
+  background: map_get($foreground, 900);
+  border-bottom: 1px solid white;
+  padding-left: 8px;
+  transition: all 255ms ease;
+}
+
+mat-toolbar {
+  border-bottom: 1px solid white;
+}
+
+.selected {
+  background: map_get($candy-app-primary, 500);
+}
+
+.slayer-container:not(.selected):hover {
+  background: map_get($foreground, 800);
+}
+
+.red-text {
+  color: map_get($candy-app-primary, 500);
+}
+
+.selected .red-text {
+  color: map_get($candy-app-primary, A100);
+}
+
+.selected-slayers {
+  position: absolute;
+  right: 0;
+  width: 23%;
+  background: map_get($foreground, 900);
+  padding-left: 16px;
+  height: calc(100% - 63px);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}

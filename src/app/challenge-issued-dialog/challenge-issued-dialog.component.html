@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>@{{data.challenger.name}} would like to play.</h1>
+<div mat-dialog-content>
+  <p class="mat-body-1">You've been challenged to a game. Join?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onNoClick()">No</button>
+  <button mat-raised-button color="accent" cdkFocusInitial (click)="onYesClick()">Yes</button>
+</div>

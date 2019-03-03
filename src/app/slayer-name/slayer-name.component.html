@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <app-padded-container>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Slayer name" [(ngModel)]="username">
+      <i matPrefix>@</i>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="getUserDetails()" routerLink="/rooms">Begin the slaughter</button>
+  </app-padded-container>
+</div>

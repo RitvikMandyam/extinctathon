@@ -1,0 +1,20 @@
+<div class="wrapper vertical-flex">
+  <mat-toolbar color="primary">
+    <span>Welcome, @{{ currentSlayer.name }}. Select slayers to play against.</span>
+  </mat-toolbar>
+  <div class="slayer-names-container">
+    <div class="selected-slayers mat-elevation-z8" [@slideInFromRight]="selectedSlayers.length > 0">
+      <p class="mat-body-1">{{getSelectedSlayerNames()}}</p>
+      <mat-form-field>
+        <input type="text" matInput [(ngModel)]="selectedAnimal" [matAutocomplete]="auto" (ngModelChange)="filterExtinctAnimals()" placeholder="Extinct animal">
+      </mat-form-field>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let animal of filteredExtinctAnimals" [value]="animal">{{animal}}</mat-option>
+      </mat-autocomplete>
+      <button mat-raised-button color="primary" (click)="startGame()" [disabled]="gameStarted">Begin</button>
+    </div>
+    <div class="slayer-container" *ngFor="let slayer of slayers;" [class.selected]="slayer.selected" (click)="selectSlayer(slayer)">
+      <span class="slayer-name mat-title"><span class="red-text">@</span>{{ slayer.name }}</span>
+    </div>
+  </div>
+</div>

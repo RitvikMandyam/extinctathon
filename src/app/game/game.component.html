@@ -1,0 +1,17 @@
+<div class="wrapper vertical-flex">
+  <div class="question-responder-container" *ngIf="slayer.isResponder">
+    <div *ngFor="let question of filterQuestions(gameState.questions)" class="responder-question mat-elevation-z8">
+      <p class="mat-body-1">{{question.originator.name}}: {{question.question}}</p>
+      <div class="responder-timer" [@shrinkQuestionTimer]="{value: question.isTimerCompleted, params: {time: question.totalTime + 's'}}"></div>
+    </div>
+  </div>
+  <div class="question-asker-container" *ngIf="!slayer.isResponder">
+    <div *ngFor="let question of gameState.questions" class="asker-question mat-elevation-z8">
+      <p class="mat-body-1"><span>{{question.question}} </span><mat-icon>arrow_right_alt</mat-icon><span> {{question.answer}}</span></p>
+    </div>
+  </div>
+  <mat-toolbar color="primary" class="mat-elevation-z8">
+    <input type="text" #chatInput placeholder="Chat message" class="chat-bar-input" [(ngModel)]="chatMessage" (keydown.Enter)="postChat()" [disabled]="shouldDisableChatBar">
+    <button mat-raised-button color="warning" class="send-button" (click)="postChat()" [disabled]="shouldDisableChatBar">Send</button>
+  </mat-toolbar>
+</div>

@@ -1,0 +1,14 @@
+@import '../../_variables.scss';
+
+.hero {
+  font-family: 'Hanalei Fill', cursive;
+  font-size: 32px;
+  color: map_get($candy-app-primary, 500);
+  margin-bottom: 0;
+}
+
+.subtitle {
+  margin-top: 0;
+  font-family: 'Staatliches', cursive;
+  font-stretch: expanded;
+}

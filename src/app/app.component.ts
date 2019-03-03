@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
+import {GlobalsService} from './globals.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'extinctathon';
+  constructor(private globals: GlobalsService) { }
+
+  @HostListener('window:beforeunload', ['$event'])
+  public beforeUnloadHandler($event) {
+    $event.returnValue = true;
+    this.globals.takeSlayerOffline();
+  }
 }

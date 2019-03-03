@@ -1,0 +1,21 @@
+@import '../../variables';
+
+.slayer-acceptance-container {
+  padding: 8px;
+}
+
+.slayer-acceptance-container p {
+  margin: 0;
+}
+
+.waiting {
+  background: map_get($candy-app-warn, 500);
+}
+
+.accepted {
+  background: map_get($candy-app-accent, 500);
+}
+
+.refused {
+  background: map_get($candy-app-primary, 500);
+}

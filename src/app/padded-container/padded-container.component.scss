@@ -1,0 +1,9 @@
+.padded-wrapper {
+  padding: 16px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.horizontal {
+  flex-flow: row nowrap;
+}
