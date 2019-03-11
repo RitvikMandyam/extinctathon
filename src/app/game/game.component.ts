@@ -108,7 +108,8 @@ export class GameComponent implements OnInit {
       } else {
         updatedQuestions = [newQuestion];
       }
-      if (this.chatMessage.includes(this.gameState.animal)) {
+      if (this.chatMessage.toLowerCase().replace(/[^A-Za-z]/g, '').includes(this.gameState.animal.toLowerCase()
+        .replace(/[^A-Za-z]/g, ''))) {
         await this.globals.gameState.update({questions: GlobalsService.convertCustomObjectToPlain(updatedQuestions),
           isFinished: true, winner: GlobalsService.convertCustomObjectToPlain(this.slayer)});
         await this.globals.slayer.update({isResponder: false, room: 'animalia', isInGame: {invitedBy: null, accepted: null},

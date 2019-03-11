@@ -33,7 +33,7 @@ export class RoomSlayersListComponent implements OnInit {
   currentSlayer: Slayer;
   roomName: string;
   selectedSlayers: Slayer[] = [];
-  selectedAnimal = '';
+    selectedAnimal = '';
   allExtinctAnimals = environment.animals;
   filteredExtinctAnimals: string[];
   gameStarted = false;
