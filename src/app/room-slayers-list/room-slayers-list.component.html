@@ -9,7 +9,7 @@
         <input type="text" matInput [(ngModel)]="selectedAnimal" [matAutocomplete]="auto" (ngModelChange)="filterExtinctAnimals()" placeholder="Extinct animal">
       </mat-form-field>
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option *ngFor="let animal of filteredExtinctAnimals" [value]="animal">{{animal}}</mat-option>
+        <mat-option *ngFor="let animal of filteredExtinctAnimals" [value]="animal" matTooltipPosition="before" [matTooltip]="animal">{{animal}}</mat-option>
       </mat-autocomplete>
       <button mat-raised-button color="primary" (click)="startGame()" [disabled]="gameStarted">Begin</button>
     </div>

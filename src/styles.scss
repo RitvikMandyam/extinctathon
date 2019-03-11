@@ -2,11 +2,13 @@
 .dark-theme {
   @include angular-material-theme($candy-app-theme);
 }
-
-html, body, app-root, app-will-you-play, app-slayer-name, app-rooms, app-room-slayers-list, app-game {
-  display: flex;
+html, body {
   width: 100%;
   height: 100%;
+}
+html, body, app-root, app-will-you-play, app-slayer-name, app-rooms, app-room-slayers-list, app-game {
+  display: flex;
+  flex: 1;
   margin: 0;
   padding: 0;
 }

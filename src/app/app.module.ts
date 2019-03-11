@@ -14,7 +14,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {PaddedContainerComponent} from './padded-container/padded-container.component';
 import {LogoComponent} from './logo/logo.component';
@@ -65,6 +65,7 @@ firebase.initializeApp(environment.firebase);
     MatTableModule,
     MatAutocompleteModule,
     MatDialogModule,
+    MatTooltipModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule

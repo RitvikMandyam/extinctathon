@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Slayer} from '../slayer';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {AngularFirestore, DocumentSnapshot} from '@angular/fire/firestore';
 import {MatDialog} from '@angular/material';
 import {ChallengeIssuedDialogComponent} from '../challenge-issued-dialog/challenge-issued-dialog.component';
 import {WaitingForSlayersComponent} from '../waiting-for-slayers/waiting-for-slayers.component';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-room-slayers-list',
@@ -33,12 +34,12 @@ export class RoomSlayersListComponent implements OnInit {
   roomName: string;
   selectedSlayers: Slayer[] = [];
   selectedAnimal = '';
-  allExtinctAnimals = ['Carrier pigeon', 'Non-Trump Supporters', 'People from California'];
+  allExtinctAnimals = environment.animals;
   filteredExtinctAnimals: string[];
   gameStarted = false;
 
   constructor(private route: ActivatedRoute, private globals: GlobalsService, private db: AngularFirestore,
-              public dialog: MatDialog, private router: Router) {
+              public dialog: MatDialog) {
   }
 
   async ngOnInit() {
@@ -84,14 +85,14 @@ export class RoomSlayersListComponent implements OnInit {
     this.filteredExtinctAnimals = this.allExtinctAnimals.filter(e => e.toLowerCase().includes(filterValue)).slice(0, 5);
   }
 
-  startGame() {
+  async startGame() {
     this.gameStarted = true;
     this.globals.slayer.get()
       .subscribe(async (snap: DocumentSnapshot<Slayer>) => {
         if (snap.exists) {
-          await this.globals.setGame(snap.data().name, true);
-          await this.globals.slayer.update({isResponder: true});
           const responder = snap.data();
+          await this.globals.setGame(responder.name, true);
+          await this.globals.slayer.update({isResponder: true});
           await this.globals.gameState.update({
             gameID: responder.name, responder: responder, slayers: GlobalsService.convertCustomObjectToPlain(this.selectedSlayers),
             animal: this.selectedAnimal, isFinished: false, questions: []
@@ -99,7 +100,7 @@ export class RoomSlayersListComponent implements OnInit {
           const promises = [];
           for (const slayer of this.selectedSlayers) {
             promises.push(this.db.collection('slayers').doc(slayer.name)
-              .update({isInGame: {invitedBy: snap.data(), accepted: null}}));
+              .update({isInGame: {invitedBy: responder, accepted: null}}));
           }
           Promise.all(promises)
             .then(() => this.dialog.open(WaitingForSlayersComponent, {

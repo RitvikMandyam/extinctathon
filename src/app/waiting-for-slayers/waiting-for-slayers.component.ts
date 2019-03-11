@@ -23,7 +23,7 @@ export class WaitingForSlayersComponent implements OnInit {
         .subscribe((newSlayer: Slayer) => {
           let slayerIndex = this.slayers.findIndex(e => e.name === newSlayer.name);
           if (slayerIndex < 0) {
-            slayerIndex = this.slayers.length === 0 ? 0 : this.slayers.length - 1;
+            slayerIndex = this.slayers.length === 0 ? 0 : this.slayers.length;
           }
           this.awaitedSlayers[slayerIndex] = newSlayer.isInGame.accepted === null;
           this.slayers[slayerIndex] = newSlayer;

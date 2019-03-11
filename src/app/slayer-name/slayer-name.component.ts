@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {GlobalsService} from '../globals.service';
-import {Slayer} from '../slayer';
-import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-slayer-name',
@@ -11,7 +9,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 export class SlayerNameComponent {
   username: string;
 
-  constructor(private globals: GlobalsService, private db: AngularFirestore) {
+  constructor(private globals: GlobalsService) {
   }
 
   getUserDetails() {

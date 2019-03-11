@@ -1,7 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {GlobalsService} from '../globals.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {AngularFirestore} from '@angular/fire/firestore';
 import {Message} from '../message';
 import {Slayer} from '../slayer';
 import {GameState} from '../game-state';
@@ -60,11 +59,6 @@ export class GameComponent implements OnInit {
         } else {
           if (!gameState.isFinished) {
             this.updateGameStateQuestions(gameState);
-            gameState.questions.forEach(e => {
-              if (!e.totalTime) {
-                e.totalTime = 2 + e.question.split(' ').length + (0.5 * Math.log(gameState.slayers.length));
-              }
-            });
           } else {
             if (this.slayer.name === gameState.winner.name) {
               this.dialog.open(WinnerDialogComponent, {
@@ -138,10 +132,18 @@ export class GameComponent implements OnInit {
   }
 
   updateGameStateQuestions(newGameState: GameState) {
-    const newQuestions: Message[] = newGameState.questions.filter(e => !JSON.stringify(this.gameState).includes(JSON.stringify(e)));
+    let newQuestions: Message[] = newGameState.questions.filter(e => !JSON.stringify(this.gameState).includes(JSON.stringify(e)));
+    if (!this.slayer.isResponder) {
+      newQuestions = newQuestions.filter(e => e.originator.name === this.slayer.name);
+    }
     for (const question of newQuestions) {
       setTimeout(() => question.isTimerCompleted = true, 5);
     }
+    newQuestions.forEach(e => {
+      if (!e.totalTime) {
+        e.totalTime = 2 + e.question.split(' ').length + (0.5 * Math.log(this.gameState.slayers.length));
+      }
+    });
     for (const question of newQuestions) {
       if (this.gameState.questions.some((oldE) => oldE.question === question.question)) {
         const indexToUpdate = this.gameState.questions.findIndex(e => question.question === e.question);
@@ -152,6 +154,5 @@ export class GameComponent implements OnInit {
       }
     }
     console.log(this.gameState.questions);
-    this.globals.gameState.update({questions: this.gameState.questions});
   }
 }
